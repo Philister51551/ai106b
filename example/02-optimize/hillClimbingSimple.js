@@ -1,14 +1,22 @@
-function f (x) { return -1 * ( x * x + 3 * x + 5) }
+function f (x) { return x  + 1 / ( x * x )  }
 // function f(x) { return -1*Math.abs(x*x-4); }
 
-var dx = 0.01
+var dx = 0.2
 
 function hillClimbing (f, x) {
   while (true) {
+    //console.log('test=%s',(-1*(0.1+1/(0.1*0.1))).toFixed(4))
     console.log('f(%s)=%s', x.toFixed(4), f(x).toFixed(4))
-    if (f(x + dx) >= f(x)) {
+    if(f(x + dx) <= f(x) && f(x - dx) <= f(x))
+    {
+      if(f(x + dx) < f(x - dx)) {
+        x = x + dx
+      }else{
+        x = x - dx
+      }
+    }else if (f(x + dx) <= f(x)) {
       x = x + dx
-    } else if (f(x - dx) >= f(x)) {
+    } else if (f(x - dx) <= f(x)) {
       x = x - dx
     } else {
       break
@@ -16,4 +24,4 @@ function hillClimbing (f, x) {
   }
 }
 
-hillClimbing(f, 0.0)
+hillClimbing(f, 0.1)
